@@ -13,17 +13,14 @@ export class BoardsService {
     private boardRepository: BoardRepository
   ) {}
 
-  async createBoard(createBoardDto: CreateBoardDto): Promise<Board> {
-    const { title, description } = createBoardDto
+  // repository 패턴을 이용
+  // async-await을 사용하지 않으므로 삭제해준다.
+  createBoard(createBoardDto: CreateBoardDto): Promise<Board> {
+    return this.boardRepository.createBoard(createBoardDto)
+  }
 
-    const board = this.boardRepository.create({
-      title,
-      description,
-      status: BoardStatus.PUBLIC
-    })
-
-    await this.boardRepository.save(board)
-    return board
+  async getAllBoards(): Promise<Board[]> {
+    return this.boardRepository.find()
   }
 
   async getBoardById(id: number): Promise<Board> {
@@ -34,5 +31,25 @@ export class BoardsService {
     }
 
     return found
+  }
+
+  async deleteBoard(id: number): Promise<void> {
+    // this.boardRepository.delete()
+    // : Repository 계층까지 가지만 Repository 계층에 
+    // delete() 메소드가 없는 것은 Repository class에게 상속을 받았기 때문
+    const result = await this.boardRepository.delete(id)
+
+    if (result.affected === 0) {
+      throw new NotFoundException(`Can't find Board with id ${id}`)
+    }
+  }
+
+  async updateBoardStatus(id: number, status: BoardStatus): Promise<Board> {
+    const board = await this.getBoardById(id)
+
+    board.status = status
+    await this.boardRepository.save(board)
+
+    return board
   }
 }
