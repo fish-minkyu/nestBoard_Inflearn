@@ -1,8 +1,11 @@
-import { EntityRepository, Repository } from "typeorm";
+import { Injectable } from '@nestjs/common'
+import { DataSource, Repository } from "typeorm";
 import { Board } from './board.entity'
 
-// BoardRepository 클래스가 Board를 컨트롤하는 Repository임을 선언
-@EntityRepository(Board)
+// @EntityRepository() 대체 방법
+@Injectable()
 export class BoardRepository extends Repository<Board> {
-  
+  constructor(dataSource: DataSource) {
+    super(Board, dataSource.createEntityManager())
+  }
 }
