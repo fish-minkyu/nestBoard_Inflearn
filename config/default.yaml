@@ -1,0 +1,10 @@
+server:
+  port: 3000
+
+db: 
+  type: 'postgres'
+  port: 5432 # postgres 기본 포트
+  database: 'board-app'
+
+jwt:
+  expiresIn: 3600

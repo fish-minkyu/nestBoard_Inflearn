@@ -16,13 +16,11 @@ export class AuthRepository extends Repository<User> {
 
     // salt 생성
     const salt = await bcrypt.genSalt()
-    console.log('salt', salt)
     // 해시된 비밀번호 생성
     const hashedPassword = await bcrypt.hash(password, salt)
 
     const user = this.create({ username, password: hashedPassword })
 
-    
     try {
       // 생성하기 원하는 user 객체를 DB에 저장
       await this.save(user)
