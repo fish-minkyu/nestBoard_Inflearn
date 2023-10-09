@@ -1,12 +1,13 @@
-// jwt.startegy를 다른 곳에서 사용할 수 있게 하기 위해
-
+// jwt.startegy를 다른 곳에서 사용할 수 있게 하기 위해 사용한다.
 import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { PassportStrategy } from "@nestjs/passport";
 import { InjectRepository } from '@nestjs/typeorm';
 import { ExtractJwt, Strategy } from "passport-jwt";
 import { AuthRepository } from './auth.repository';
+import { User } from './user.entity';
 
 // '@Injectable()'를 사용한다.
+// 왜? 어디에서나 주입할 수 있기 위해서
 @Injectable()
 // 'PassportStrategy'란 클래스를 상속한다.
 // 'PassportStrategy(Strategy)'는 JwtStrategy를 사용하기 위해 넣어준 것이다,
@@ -40,5 +41,4 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
 
     return user
   }
-
 }

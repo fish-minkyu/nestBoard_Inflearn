@@ -16,6 +16,7 @@ export class AuthRepository extends Repository<User> {
 
     // salt 생성
     const salt = await bcrypt.genSalt()
+    console.log('salt', salt)
     // 해시된 비밀번호 생성
     const hashedPassword = await bcrypt.hash(password, salt)
 
@@ -31,7 +32,6 @@ export class AuthRepository extends Repository<User> {
       } else {
         throw new InternalServerErrorException()
       }
-      
     }
   }
 }
