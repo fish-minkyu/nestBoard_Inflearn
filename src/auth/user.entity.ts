@@ -13,7 +13,6 @@ export class User extends BaseEntity {
   @Column()
   password: string
 
-  @OneToMany(type => Board, board => board.user, { eager: true })
   // @OneToMany(1. type => Board, 2. board => board.user, 3. { eager: true })
   // 1. 'type => Board'
   // : User 엔티티와 연관된 다른 엔티티가 'Board'임을 나타낸다.
@@ -23,5 +22,6 @@ export class User extends BaseEntity {
   // 중요한 것은 이 변수가 Board 인스턴스를 대변한다는 것이다
   // 3. { eager: true }
   // : true이면 연결된 엔티티의 정보를 불러온다는 것을 의미한다.
+  @OneToMany(type => Board, board => board.user, { eager: true })
   boards: Board[]
 }
