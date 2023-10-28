@@ -1,4 +1,5 @@
 // jwt.startegy를 다른 곳에서 사용할 수 있게 하기 위해 사용한다.
+// : authMiddleware과 같은 개념
 import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { PassportStrategy } from "@nestjs/passport";
 import { InjectRepository } from '@nestjs/typeorm';
