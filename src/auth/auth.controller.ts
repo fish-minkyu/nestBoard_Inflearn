@@ -22,7 +22,7 @@ export class AuthController {
 
   @Post('/signin')
   signIn(@Body(ValidationPipe) authCredentialsDto: AuthCredentialsDto): Promise<{accessToken: string}> {
-    return this.authService.signIn(authCredentialsDto)
+    return this.authService.signIn(authCredentialsDto) // 응답의 Body로 accessToken을 보내준다.
   };
 
   @Post('/test')
